@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Domain", "Router.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Contracts", "Router.Contracts\Router.Contracts.csproj", "{A6C10323-D098-4867-95BA-BD1D4266345E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Api", "Router.Api\Router.Api.csproj", "{C4D56DFC-05B6-4086-8D39-F25F7675F63E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{A6C10323-D098-4867-95BA-BD1D4266345E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6C10323-D098-4867-95BA-BD1D4266345E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6C10323-D098-4867-95BA-BD1D4266345E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

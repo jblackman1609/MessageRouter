@@ -2,7 +2,7 @@ using System;
 
 namespace Router.Contracts.Models;
 
-public class PIIPrediction
+public class PIIPredictionModel
 {
-
+    public bool PredictedLabel { get; set; }
 }

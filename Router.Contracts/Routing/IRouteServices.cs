@@ -10,6 +10,5 @@ public interface IRouteServices
     Task<bool> IsAssumedOptInTenantAsync(decimal id);
     Task<bool> IsOTPTenantAsync(decimal id);
     Task<TenantType?> GetTenantTypeAsync(decimal id);
-    Task<TenantDto> GetTenantByTemplateIdAsync(decimal id);
-    Task AddMessgeAsync(MessageDto messageDTO);
+    Task<TenantDto> GetTenantByTemplateIdAsync(decimal id);    
 }

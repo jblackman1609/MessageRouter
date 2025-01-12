@@ -20,3 +20,15 @@ Router.Contracts/obj/Debug/net9.0/Router.Contracts.AssemblyInfoInputs.cache
 Router.Contracts/obj/Debug/net9.0/Router.Contracts.assets.cache
 Router.Contracts/obj/Debug/net9.0/Router.Contracts.GeneratedMSBuildEditorConfig.editorconfig
 Router.Contracts/obj/Debug/net9.0/Router.Contracts.GlobalUsings.g.cs
+Router.Api/obj/project.assets.json
+Router.Api/obj/project.nuget.cache
+Router.Api/obj/Router.Api.csproj.nuget.dgspec.json
+Router.Api/obj/Router.Api.csproj.nuget.g.props
+Router.Api/obj/Router.Api.csproj.nuget.g.targets
+Router.Api/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+Router.Api/obj/Debug/net9.0/Router.Api.AssemblyInfo.cs
+Router.Api/obj/Debug/net9.0/Router.Api.AssemblyInfoInputs.cache
+Router.Api/obj/Debug/net9.0/Router.Api.assets.cache
+Router.Api/obj/Debug/net9.0/Router.Api.csproj.AssemblyReference.cache
+Router.Api/obj/Debug/net9.0/Router.Api.GeneratedMSBuildEditorConfig.editorconfig
+Router.Api/obj/Debug/net9.0/Router.Api.GlobalUsings.g.cs

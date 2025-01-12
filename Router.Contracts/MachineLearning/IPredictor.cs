@@ -6,5 +6,5 @@ namespace Router.Contracts.MachineLearning;
 
 public interface IPredictor
 {
-    Task<MLResponse<PIIPrediction>> PredictAsync(MLRequest<PIIDataDto> request);
+    Task<MLResponse<PIIPredictionModel>> PredictAsync(MLRequest<PIIDataDto> request);
 }

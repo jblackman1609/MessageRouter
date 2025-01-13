@@ -1,8 +1,9 @@
 using System;
+using Router.Contracts.Models;
 
 namespace Router.Contracts.Services;
 
 public interface IEmailRelayService
 {
-    Task SendEmailAsync();
+    Task SendEmailAsync(EmailModel emailModel);
 }

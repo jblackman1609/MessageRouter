@@ -4,7 +4,7 @@ namespace Router.Contracts.Models;
 
 public class MessageDto
 {
-    public TenantMessageModel? TenantMessage { get; set; }
+    public TenantMessage? TenantMessage { get; set; }
     public MessageStatus Status { get; set; }
     public List<string>? MessageLogs { get; set; }
     public string? GuidId { get; set; } = Guid.NewGuid().ToString();

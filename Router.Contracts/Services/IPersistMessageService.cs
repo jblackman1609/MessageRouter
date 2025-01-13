@@ -6,5 +6,5 @@ namespace Router.Contracts.Services;
 public interface IPersistMessageService
 {
     Task AddMessgeAsync(MessageDto messageDTO);
-    Task UpdateMessageAsync(MessageDto messageDto, decimal id);
+    Task UpdateMessageAsync(MessageDto messageDto, string id);
 }

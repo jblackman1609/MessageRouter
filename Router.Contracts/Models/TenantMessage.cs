@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Router.Contracts.Models;
 
-public class TenantMessageModel
+public class TenantMessage
 {
     [Required]
     public string? Body { get; set; }

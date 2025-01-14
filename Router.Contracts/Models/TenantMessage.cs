@@ -13,7 +13,7 @@ public class TenantMessage
 
     [Required]
     [Phone]
-    public string? ToPhone { get; set; }
+    public List<string>? ToPhones { get; set; }
 
     [Required]
     public decimal TemplateId { get; set; }

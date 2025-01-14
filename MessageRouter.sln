@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Router", "Router", "{6439B7AC-6EDD-4BEE-8470-05ADC1522386}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Domain", "Router.Domain\Router.Domain.csproj", "{1F250803-1875-4864-A154-51F0C193E06A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Contracts", "Router.Contracts\Router.Contracts.csproj", "{A6C10323-D098-4867-95BA-BD1D4266345E}"

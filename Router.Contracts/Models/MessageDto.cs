@@ -1,13 +1,30 @@
 using System;
+using System.Text.RegularExpressions;
 
 namespace Router.Contracts.Models;
 
 public class MessageDto
 {
-    public TenantMessage? TenantMessage { get; set; }
+    public string? Body { get; set; }
+    public string? Subject { get; set; }
+    public string? ToPhone { get; set; }
+    public decimal TemplateId { get; set; }
     public MessageStatus Status { get; set; }
-    public List<string>? MessageLogs { get; set; }
-    public string? GuidId { get; set; } = Guid.NewGuid().ToString();
+    public List<string> MessageLogs { get; set; }
+    public string GuidId { get; set; }
+    public bool IsOptedIn { get; set; }
+
+    public MessageDto()
+    {
+        GuidId = Guid.NewGuid().ToString();
+        Status = MessageStatus.Accepted;
+        MessageLogs!.Add(MessageLog.ACCEPTED_LOG);
+    }
+    
+    public bool IsOTPMessage()
+    {
+        return new Regex("^[0-9]+$").IsMatch(this.Body!);
+    }
 }
 
 public enum MessageStatus

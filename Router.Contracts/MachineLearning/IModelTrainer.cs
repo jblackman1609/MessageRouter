@@ -6,6 +6,6 @@ namespace Router.Contracts.MachineLearning;
 public interface IModelTrainer
 {
     Task FitAsync();
-    Task<MLResponse<BinaryMetricDto>> EvaluateAsync();
+    Task<BinaryMetricDto> EvaluateAsync();
     Task SaveModelAsync(); 
 }

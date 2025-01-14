@@ -1,7 +1,7 @@
 using System;
 using Router.Contracts.Models;
 
-namespace Router.Contracts.Services;
+namespace Router.Contracts.Routing;
 
 public interface IRouteServices
 {

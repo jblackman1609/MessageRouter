@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Router.Contracts.Models;
+using Router.Contracts.Routing;
 using Router.Contracts.Services;
 
 namespace Router.Api.Controllers
@@ -11,12 +12,14 @@ namespace Router.Api.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly IServiceManager _service;
+        private readonly IRouteService _service;
+        private readonly IRouteStrategy _router;
         private readonly ILogger<MessageController> _logger;
 
-        public MessageController(IServiceManager service, ILogger<MessageController> logger)
+        public MessageController(IRouteService service, IRouteStrategy router, ILogger<MessageController> logger)
         {
             _service = service;
+            _router = router;
             _logger = logger;
         }
 
@@ -24,85 +27,82 @@ namespace Router.Api.Controllers
         [Authorize]
         public async Task<IActionResult> SendSmsAsync([FromBody] TenantMessage tenantMessage)
         {
-            MessageDto messageDto = new();
-            MessageResponse response = new();
-
             if (!ModelState.IsValid)
             {
-                messageDto.Status = MessageStatus.Rejected;
-                messageDto.MessageLogs!.Add(MessageLog.REJECTED_LOG);
-                await _service.PersistMessageService.AddMessgeAsync(messageDto);
-                _logger.LogError($"");
-
+                _logger.LogError($"{MessageLog.REJECTED_LOG}");
                 return BadRequest();
             }
 
-            messageDto.TenantMessage = tenantMessage;
-            messageDto.Status = MessageStatus.Accepted;
-            messageDto.MessageLogs!.Add(MessageLog.ACCEPTED_LOG);
-            await _service.PersistMessageService.AddMessgeAsync(messageDto);
-
-            bool isOTPMessage = new Regex("^[0-9]+$").IsMatch(tenantMessage.Body!);
+            TenantDto tenant = await _service.PersistService.GetTenantByTemplateIdAsync(tenantMessage.TemplateId);
             
-            CountryDataDto countryData = await _service.RouteService.GetCountryDataAsync(tenantMessage.ToPhone!);
-            TenantDto tenant = await _service.RouteService.GetTenantByTemplateIdAsync(tenantMessage.TemplateId);
-            RecipientDto recipient = await _service.RouteService.GetRecipientAsync(tenantMessage.ToPhone!);
-            
-            RouteStrategy strategy = DetermineStrategy(isOTPMessage, countryData.IsOTPAllowed, countryData.IsOptInRequired, tenant.Type);
-
-            if (strategy is RouteStrategy.OTP)
+            foreach(string phone in tenantMessage.ToPhones!)
             {
-                response = await _service.MessageRelayService.SendToRelayAsync(tenantMessage);                
+                MessageDto messageDto = new()
+                {
+                    Body = tenantMessage.Body,
+                    Subject = tenantMessage.Subject,
+                    ToPhone = phone,
+                    TemplateId = tenantMessage.TemplateId
+                };
+
+                CountryDataDto countryData = await _service.PersistService.GetCountryDataAsync(phone);
+                
+                try
+                {
+                    await ProcessMessageAsync(messageDto, countryData, tenant);
+                }
+
+                catch (Exception ex)
+                {
+                    _logger.LogError($"{ex.Message}");
+                }
+                 
+            }
+            
+            return Ok();
+        }
+
+        private async Task ProcessMessageAsync(MessageDto message, CountryDataDto countryData, TenantDto tenant)
+        {
+            bool isOTPMessage = message.IsOTPMessage();
+            bool isOTPAllowed = countryData.IsOTPAllowed;
+            bool isOptInRequired = countryData.IsOptInRequired;
+
+            RouteStrategy strategy = DetermineStrategy(isOTPMessage, isOTPAllowed, isOptInRequired, tenant.Type);
+            if (strategy is RouteStrategy.None)
+            {
+                await Task.FromResult(new MessageResponse
+                {
+                    Success = false,
+                    Status = MessageStatus.Declined,
+                    MessageLog = MessageLog.DECLINED_LOG
+                });
+            }
+
+            else if (strategy is RouteStrategy.OTP)
+            {
+                await _router.RouteOTPAsync(message);
             }
 
             else if (strategy is RouteStrategy.AssumedOptIn)
             {
-                response = await _service.RouteService.RouteAssumedOptinAsync(tenantMessage);                
+                await _router.RouteAssumedOptinAsync(message);
             }
 
-            else if (strategy is RouteStrategy.Default)
-            {
-                response = await _service.RouteService.RouteDefaultAsync(tenantMessage);
-            }
-
-            else response = new()
-            {
-                Success = false,
-                Status = MessageStatus.Declined,
-                MessageLog = $""
-            };
-
-            messageDto.Status = response.Status;
-            messageDto.MessageLogs.Add(response.MessageLog!);
-
-            await _service.PersistMessageService.UpdateMessageAsync(messageDto, messageDto.GuidId!);
-
-            return Ok();
+            else await _router.RouteDefaultAsync(message);
         }
 
         private RouteStrategy DetermineStrategy(bool isOTPMessage, bool isOTPAllowed, bool isOptInRequired, TenantType tenantType)
         {
             if (isOTPMessage)
-            {                
-                if (isOTPAllowed)
-                {
-                    return RouteStrategy.OTP;
-                }
-
-                else
-                {
-                    return RouteStrategy.None;
-                }
+            { 
+                return isOTPAllowed ? RouteStrategy.OTP : RouteStrategy.None; 
             }
 
             else
             {
-                if (!isOptInRequired && tenantType == TenantType.AssumedOptIn)
-                {
-                    return RouteStrategy.AssumedOptIn;
-                }
-
-                else return RouteStrategy.Default;
+                return !isOptInRequired && tenantType == TenantType.AssumedOptIn ?
+                    RouteStrategy.AssumedOptIn : RouteStrategy.Default;
             } 
         }
     }

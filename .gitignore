@@ -43,3 +43,14 @@ Router.Core/obj/Debug/net9.0/Router.Core.AssemblyInfoInputs.cache
 Router.Core/obj/Debug/net9.0/Router.Core.assets.cache
 Router.Core/obj/Debug/net9.0/Router.Core.GeneratedMSBuildEditorConfig.editorconfig
 Router.Core/obj/Debug/net9.0/Router.Core.GlobalUsings.g.cs
+Router/Router.Domain/obj/project.assets.json
+Router/Router.Domain/obj/project.nuget.cache
+Router/Router.Domain/obj/Router.Domain.csproj.nuget.dgspec.json
+Router/Router.Domain/obj/Router.Domain.csproj.nuget.g.props
+Router/Router.Domain/obj/Router.Domain.csproj.nuget.g.targets
+Router/Router.Domain/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+Router/Router.Domain/obj/Debug/net9.0/Router.Domain.AssemblyInfo.cs
+Router/Router.Domain/obj/Debug/net9.0/Router.Domain.AssemblyInfoInputs.cache
+Router/Router.Domain/obj/Debug/net9.0/Router.Domain.assets.cache
+Router/Router.Domain/obj/Debug/net9.0/Router.Domain.GeneratedMSBuildEditorConfig.editorconfig
+Router/Router.Domain/obj/Debug/net9.0/Router.Domain.GlobalUsings.g.cs

@@ -3,36 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Domain", "Router.Domain\Router.Domain.csproj", "{1F250803-1875-4864-A154-51F0C193E06A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Router", "Router", "{A7F2EE9B-CEF9-5BA6-EF5B-474A4B1D8E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Contracts", "Router.Contracts\Router.Contracts.csproj", "{A6C10323-D098-4867-95BA-BD1D4266345E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Relay", "Relay", "{B28F882C-511B-2D9B-F6CD-85FD0315C93C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Api", "Router.Api\Router.Api.csproj", "{C4D56DFC-05B6-4086-8D39-F25F7675F63E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Core", "Router.Core\Router.Core.csproj", "{C45F6080-0B07-41BA-989B-2614B59277E4}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Identity", "Identity", "{2FA89949-C014-61E3-9766-4043502A0423}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F250803-1875-4864-A154-51F0C193E06A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F250803-1875-4864-A154-51F0C193E06A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F250803-1875-4864-A154-51F0C193E06A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F250803-1875-4864-A154-51F0C193E06A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A6C10323-D098-4867-95BA-BD1D4266345E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A6C10323-D098-4867-95BA-BD1D4266345E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A6C10323-D098-4867-95BA-BD1D4266345E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A6C10323-D098-4867-95BA-BD1D4266345E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4D56DFC-05B6-4086-8D39-F25F7675F63E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C45F6080-0B07-41BA-989B-2614B59277E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C45F6080-0B07-41BA-989B-2614B59277E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C45F6080-0B07-41BA-989B-2614B59277E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C45F6080-0B07-41BA-989B-2614B59277E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

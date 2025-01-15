@@ -10,4 +10,5 @@ public class Tenant
     public string? ResponseUrl { get; set; }
     public string? Type { get; set; }
     public List<Template>? Templates { get; set; }
+    public List<Recipient>? Recipients { get; set; }
 }

@@ -6,6 +6,6 @@ namespace Router.Domain.Repositories;
 public interface ICountryDataRepository
 {
     Task<CountryData> GetCountryDataAsync(decimal id);
-    Task<CountryData> GetCountryDataAsync(string phone);
+    Task<CountryData> GetCountryDataAsync(string code);
     Task<List<CountryData>> GetAllCountryDataAsync();
 }

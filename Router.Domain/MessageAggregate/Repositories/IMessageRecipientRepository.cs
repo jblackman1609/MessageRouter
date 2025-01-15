@@ -9,4 +9,5 @@ public interface IMessageRecipientRepository
     Task UpdateMessageRecipientAsync(MessageRecipient messageRecipient);
     Task<List<MessageRecipient>> GetAllMessageRecipientsByMessageAsync(decimal messageId);
     Task<List<MessageRecipient>> GetAllMessageRecipientsByRecipientAsync(decimal RecipientId);
+    Task<MessageRecipient> GetMessageRecipientAsync(decimal messageId, decimal recipientId);
 }

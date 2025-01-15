@@ -17,4 +17,7 @@ public class TenantMessage
 
     [Required]
     public decimal TemplateId { get; set; }
+
+    [Required]
+    public string? FromPhone { get; set; }
 }

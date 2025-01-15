@@ -5,5 +5,5 @@ namespace Router.Contracts.Services;
 
 public interface IMessageRelayService
 {
-    Task<MessageResponse> SendMessageAsync(TenantMessage message);
+    Task<MessageResponse> SendMessageAsync(SmsModel sms);
 }

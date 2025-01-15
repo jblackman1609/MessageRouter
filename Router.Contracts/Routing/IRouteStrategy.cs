@@ -5,7 +5,7 @@ namespace Router.Contracts.Routing;
 
 public interface IRouteStrategy
 {
-    Task RouteOTPAsync(MessageDto message);
+    Task<MessageResponse> RouteOTPAsync(MessageDto message);
     Task RouteAssumedOptinAsync(MessageDto message);
     Task RouteDefaultAsync(MessageDto message);
 }

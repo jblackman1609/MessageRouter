@@ -42,7 +42,8 @@ namespace Router.Api.Controllers
                     Body = tenantMessage.Body,
                     Subject = tenantMessage.Subject,
                     ToPhone = phone,
-                    TemplateId = tenantMessage.TemplateId
+                    TemplateId = tenantMessage.TemplateId,
+                    FromPhone = tenantMessage.FromPhone
                 };
 
                 CountryDataDto countryData = await _service.PersistService.GetCountryDataAsync(phone);

@@ -8,7 +8,7 @@ namespace Router.Domain.MessageAggregate;
 public class Template : AggregateRoot
 {
     private TemplateStatus _status;
-    private IReadOnlyList<KeyValuePair<string, string>> _keywords = [];
+    private Dictionary<string, string> _keywords = new();
     private IReadOnlyList<decimal> _messageIds = [];
     private string _text = "";
     public string Title { get; private set; }
@@ -24,7 +24,7 @@ public class Template : AggregateRoot
         Type = type;
     }
 
-    public IReadOnlyList<KeyValuePair<string, string>> Keywords => _keywords;
+    public IDictionary<string, string> Keywords => _keywords;
     public IReadOnlyList<decimal> MessageIds => _messageIds;
     public TemplateStatus Status => _status;    
     public string Text => _text;

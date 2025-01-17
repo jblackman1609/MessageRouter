@@ -5,7 +5,7 @@ namespace Router.Domain;
 
 public abstract class AggregateRoot
 {
-    public decimal Id { get; protected set; }    
+    public decimal Id { get; private set; }    
     public DateTime DateCreated { get; protected set; }
     public DateTime LastUpdated { get; protected set; }
     public string? CreatedBy { get; protected set; }

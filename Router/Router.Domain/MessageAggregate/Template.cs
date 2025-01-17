@@ -1,4 +1,5 @@
 using System;
+using System.Data.Common;
 using System.Reflection;
 using System.Text;
 
@@ -7,23 +8,26 @@ namespace Router.Domain.MessageAggregate;
 public class Template : AggregateRoot
 {
     private TemplateStatus _status;
-    public string Title { get; private set; }
-    public string Text { get; private set; }
-    public TemplateStatus Status => _status;
-    public TemplateType Type { get; private set; }
     private IReadOnlyList<KeyValuePair<string, string>> _keywords = [];
-    private IReadOnlyList<Message> _messages = [];
+    private IReadOnlyList<decimal> _messageIds = [];
+    private string _text = "";
+    public string Title { get; private set; }
+    public TemplateType Type { get; private set; }
+    public decimal TenantId { get; private set; }
+    
 
-    public Template(decimal id, string title, string text) :
+    public Template(decimal id, string title, TemplateType type) :
         base(id)
     {
         Title = title;
-        Text = text;
         _status = TemplateStatus.Pending;
+        Type = type;
     }
 
     public IReadOnlyList<KeyValuePair<string, string>> Keywords => _keywords;
-    public IReadOnlyList<Message> Messages => _messages;
+    public IReadOnlyList<decimal> MessageIds => _messageIds;
+    public TemplateStatus Status => _status;    
+    public string Text => _text;
 
     public void AddKeyword(string key, string value)
     {
@@ -32,35 +36,30 @@ public class Template : AggregateRoot
 
     public void UpdateStatus(TemplateStatus status)
     {
-        _status = status;
+        if (status != _status)
+            _status = status;
+
+        throw new ArgumentException($"Status is already set to {status}");
     }
 
-    private string BuildMessageBody(string text, List<KeyValuePair<string, string>> keywords)
-    {
-        string body = $"";
-        foreach (KeyValuePair<string, string> kvp in keywords)
-        {
-            body.Concat(kvp.Value);
-        }
-
-        return body;        
-    }
-
-    public void AddMessage(string sub, string body, string from, string to)
+    public void AddMessageId(decimal messageId)
     {
         if (_status != TemplateStatus.Approved)
         {
             throw new ArgumentException($"Template must be approved for use.");
         }
 
-        Message message = new Message(sub, body, from, to);
-
-        if (!_messages.Contains(message))
+       if (!_messageIds.Contains(messageId))
         {
-            _messages.ToList().Add(message);
+            _messageIds.ToList().Add(messageId);
         }
         
-        throw new ArgumentException($"Message {message.Subject} already exists.");
+        throw new ArgumentException($"Message with Id: {messageId} already exists.");
+    }
+
+    public void AddText(string text)
+    {
+        _text = text;
     }
 }
 

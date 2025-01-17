@@ -5,7 +5,9 @@ namespace Router.Domain.TenantRecipientAggregate;
 public class Recipient
 {
     public decimal Id { get; private set; }
-    public string Phone { get; }
+    private string _phone = "";
+    
+    public Recipient(string phone) => _phone = phone;
 
-    public Recipient(string phone) => Phone = phone;
+    public string Phone => _phone;
 }

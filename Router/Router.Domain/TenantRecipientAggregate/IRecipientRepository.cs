@@ -4,5 +4,5 @@ namespace Router.Domain.TenantRecipientAggregate;
 
 public interface IRecipientRepository
 {
-    Task<Recipient> GetRecipientAsync(string phone);
+    Task<decimal> GetRecipientIdAsync(string phone);
 }

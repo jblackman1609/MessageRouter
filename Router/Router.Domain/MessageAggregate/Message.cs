@@ -1,23 +1,24 @@
 using System;
 using System.Security.Principal;
+using System.Text.RegularExpressions;
 
 namespace Router.Domain.MessageAggregate;
 
 public class Message
 {
     private MessageStatus _status;
+    private string _body = "";
     private readonly List<string> _messageLogs = [];    
     public string GuidId { get; private set; }
     public string Subject { get; private set; }
-    public string Body { get; private set; }
     public string RecipientPhone { get; private set; }
     public string TenantPhone { get; private set; }
+    public decimal TemplateId { get; private set; }
 
-    public Message(string subject, string body, string tenantPhone, string recipientPhone)
+    public Message(decimal templateId, string subject, string tenantPhone, string recipientPhone)
     {
         GuidId = Guid.NewGuid().ToString();        
         Subject = subject;
-        Body = body;
         RecipientPhone = recipientPhone;
         TenantPhone = tenantPhone;
     }
@@ -25,6 +26,21 @@ public class Message
     public IReadOnlyCollection<string> MessageLogs => _messageLogs.ToList();
 
     public MessageStatus Status => _status;
+
+    public string Body => _body;
+
+    public string BuildMessageBody(string text, Dictionary<string, string> fields)
+    {
+        Regex re = new Regex(@"\{([^\}]+)\}", RegexOptions.Compiled);
+        
+        if (fields is null)
+            return text;
+
+        return re.Replace(text, delegate(Match match)
+        {
+            return fields[match.Groups[1].Value];
+        });        
+    }
 
     public void AddMessageLog(string log)
     {

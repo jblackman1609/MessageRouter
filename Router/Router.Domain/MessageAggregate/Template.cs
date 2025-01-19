@@ -8,7 +8,6 @@ namespace Router.Domain.MessageAggregate;
 public class Template : AggregateRoot
 {
     private TemplateStatus _status;
-    private Dictionary<string, string> _keywords = new();
     private IReadOnlyList<decimal> _messageIds = [];
     private string _text = "";
     public string Title { get; private set; }
@@ -24,19 +23,13 @@ public class Template : AggregateRoot
         Type = type;
     }
 
-    public IDictionary<string, string> Keywords => _keywords;
     public IReadOnlyList<decimal> MessageIds => _messageIds;
     public TemplateStatus Status => _status;    
     public string Text => _text;
 
-    public void AddKeyword(string key, string value)
-    {
-        _keywords.ToList().Add(new KeyValuePair<string, string>(key, value));
-    }
-
     public void UpdateStatus(TemplateStatus status)
     {
-        if (status != _status)
+        if (_status != status)
             _status = status;
 
         throw new ArgumentException($"Status is already set to {status}");
@@ -44,12 +37,7 @@ public class Template : AggregateRoot
 
     public void AddMessageId(decimal messageId)
     {
-        if (_status != TemplateStatus.Approved)
-        {
-            throw new ArgumentException($"Template must be approved for use.");
-        }
-
-       if (!_messageIds.Contains(messageId))
+        if (!_messageIds.Contains(messageId))
         {
             _messageIds.ToList().Add(messageId);
         }
@@ -59,7 +47,22 @@ public class Template : AggregateRoot
 
     public void AddText(string text)
     {
-        _text = text;
+        if (!_text.Contains(text))
+        {
+            _text = text;
+        }
+
+        else throw new ArgumentException($"Temnplate already has '{text}' as text.");
+    }
+
+    public Message Create(string sub, string tPhone, string rPhone)
+    {
+        if (_status != TemplateStatus.Approved)
+        {
+            throw new ArgumentException($"Template must be approved for use.");
+        }
+        
+        return new Message(sub, tPhone, rPhone, this.Id);
     }
 }
 

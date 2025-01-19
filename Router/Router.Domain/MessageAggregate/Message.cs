@@ -15,12 +15,13 @@ public class Message
     public string TenantPhone { get; private set; }
     public decimal TemplateId { get; private set; }
 
-    public Message(decimal templateId, string subject, string tenantPhone, string recipientPhone)
+    public Message(string subject, string tenantPhone, string recipientPhone, decimal templateId)
     {
         GuidId = Guid.NewGuid().ToString();        
         Subject = subject;
         RecipientPhone = recipientPhone;
         TenantPhone = tenantPhone;
+        TemplateId = templateId;
     }
 
     public IReadOnlyCollection<string> MessageLogs => _messageLogs.ToList();
@@ -54,7 +55,10 @@ public class Message
 
     public void UpdateStatus(MessageStatus status)
     {
-        _status = status;
+        if(_status != status)
+        {
+            _status = status;
+        }
     }
 }
 

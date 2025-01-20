@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Router.Domain\Router.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

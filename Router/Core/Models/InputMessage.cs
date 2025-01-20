@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace Contracts.Models;
+namespace Core.Models;
 
 public class InputMessage
 {

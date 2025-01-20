@@ -4,7 +4,7 @@ using Router.External.DataModels;
 
 namespace Router.External.Contexts.Implementations;
 
-public class SqlServerContext : DbContext, IMessageRouterContext
+internal class SqlServerContext : DbContext, IMessageRouterContext
 {
     public DbSet<TemplateModel> Templates { get; set; }
 

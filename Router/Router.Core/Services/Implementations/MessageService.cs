@@ -1,6 +1,6 @@
 using System;
 
-namespace Router.Core.Interfaces;
+namespace Router.Core.Services.Interfaces;
 
 public interface MessageService
 {

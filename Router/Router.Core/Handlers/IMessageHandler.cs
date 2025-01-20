@@ -1,7 +1,7 @@
 using System;
 using Router.Domain.MessageAggregate;
 
-namespace Router.Core.Interfaces;
+namespace Router.Core.Handlers;
 
 public interface IMessageHandler
 {

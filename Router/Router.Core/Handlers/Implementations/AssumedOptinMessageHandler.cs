@@ -1,10 +1,10 @@
 using System;
-using Router.Core.Interfaces;
 using Router.Core.Models;
+using Router.Core.Services;
 using Router.Domain.MessageAggregate;
 using Router.Domain.TenantRecipientAggregate;
 
-namespace Router.Core.Implementations;
+namespace Router.Core.Handlers.Implementations;
 
 internal class AssumedOptinMessageHandler : IMessageHandler
 {

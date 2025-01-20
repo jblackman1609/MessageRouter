@@ -1,11 +1,12 @@
 using System;
+using Router.Core.Handlers;
 using Router.Domain.MessageAggregate;
 
-namespace Router.Core.Interfaces;
+namespace Router.Core.Services;
 
 public interface IMessageSender
 {
     IMessageHandler Handler { get; }
 
-    Task SendMessageAsync();
+    Task<(bool, string)> SendMessageAsync();
 }

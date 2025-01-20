@@ -107,3 +107,15 @@ Router/Router.Core/obj/Debug/net9.0/Router.Core.AssemblyInfoInputs.cache
 Router/Router.Core/obj/Debug/net9.0/Router.Core.assets.cache
 Router/Router.Core/obj/Debug/net9.0/Router.Core.GeneratedMSBuildEditorConfig.editorconfig
 Router/Router.Core/obj/Debug/net9.0/Router.Core.GlobalUsings.g.cs
+Router/Router.External/obj/project.assets.json
+Router/Router.External/obj/project.nuget.cache
+Router/Router.External/obj/Router.External.csproj.nuget.dgspec.json
+Router/Router.External/obj/Router.External.csproj.nuget.g.props
+Router/Router.External/obj/Router.External.csproj.nuget.g.targets
+Router/Router.External/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+Router/Router.External/obj/Debug/net9.0/Router.External.AssemblyInfo.cs
+Router/Router.External/obj/Debug/net9.0/Router.External.AssemblyInfoInputs.cache
+Router/Router.External/obj/Debug/net9.0/Router.External.assets.cache
+Router/Router.External/obj/Debug/net9.0/Router.External.csproj.AssemblyReference.cache
+Router/Router.External/obj/Debug/net9.0/Router.External.GeneratedMSBuildEditorConfig.editorconfig
+Router/Router.External/obj/Debug/net9.0/Router.External.GlobalUsings.g.cs

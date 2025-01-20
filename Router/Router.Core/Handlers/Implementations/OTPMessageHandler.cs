@@ -1,30 +1,21 @@
 using System;
-using Router.Core.Interfaces;
 using Router.Core.Models;
+using Router.Core.Services;
 using Router.Domain.MessageAggregate;
-using Router.Domain.TenantRecipientAggregate;
 
-namespace Router.Core.Implementations;
+namespace Router.Core.Handlers.Implementations;
 
-internal class AssumedOptinMessageHandler : IMessageHandler
+public class OTPMessageHandler : IMessageHandler
 {
-    private readonly ITemplateRepository _templateRepo;
-    private readonly ITenantRecipientRepository _tenantRecipienRepo;
     private readonly IMessageRelayService _relayService;
 
-    public AssumedOptinMessageHandler(ITemplateRepository templateRepo,
-        ITenantRecipientRepository tenantRecipientRepo,
-        IMessageRelayService relayService)
+    public OTPMessageHandler(IMessageRelayService relayService)
     {
-        _templateRepo = templateRepo;
-        _tenantRecipienRepo = tenantRecipientRepo;
         _relayService = relayService;
     }
-    
+
     public async Task<(bool, string)> HandleAsync(Message message)
     {
-        // Check for PII (PII interface)
-
         SmsModel smsModel = new()
         {
             Subject = message.Subject,

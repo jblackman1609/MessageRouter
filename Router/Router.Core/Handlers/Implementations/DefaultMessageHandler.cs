@@ -1,8 +1,7 @@
 using System;
-using Router.Core.Interfaces;
 using Router.Domain.MessageAggregate;
 
-namespace Router.Core.Implementations;
+namespace Router.Core.Handlers.Implementations;
 
 internal class DefaultMessageHandler : IMessageHandler
 {

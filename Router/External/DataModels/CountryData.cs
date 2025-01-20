@@ -1,9 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Router.External.DataModels;
 
+[Table("CountryData")]
 public class CountryData
 {
+    [Key]
     public decimal Id { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime LastUpdated { get; set; }

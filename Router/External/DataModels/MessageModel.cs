@@ -1,9 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Router.External.DataModels;
 
+[Table("Messages")]
 public class MessageModel
 {
+    [Key]
     public decimal Id { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime LastUpdated { get; set; }

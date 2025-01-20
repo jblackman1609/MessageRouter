@@ -1,9 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Router.External.DataModels;
 
+[Table("TenantRecipients")]
 public class TenantRecipientModel
 {
+    [Key]
     public decimal Id { get; set; }
     public decimal TenantId { get; set; }
     public decimal RecipientId { get; set; }

@@ -85,3 +85,14 @@ Router/Contracts/obj/Debug/net9.0/Contracts.AssemblyInfoInputs.cache
 Router/Contracts/obj/Debug/net9.0/Contracts.assets.cache
 Router/Contracts/obj/Debug/net9.0/Contracts.GeneratedMSBuildEditorConfig.editorconfig
 Router/Contracts/obj/Debug/net9.0/Contracts.GlobalUsings.g.cs
+Router/Core/obj/Core.csproj.nuget.dgspec.json
+Router/Core/obj/Core.csproj.nuget.g.props
+Router/Core/obj/Core.csproj.nuget.g.targets
+Router/Core/obj/project.assets.json
+Router/Core/obj/project.nuget.cache
+Router/Core/obj/Debug/net9.0/.NETCoreApp,Version=v9.0.AssemblyAttributes.cs
+Router/Core/obj/Debug/net9.0/Core.AssemblyInfo.cs
+Router/Core/obj/Debug/net9.0/Core.AssemblyInfoInputs.cache
+Router/Core/obj/Debug/net9.0/Core.assets.cache
+Router/Core/obj/Debug/net9.0/Core.GeneratedMSBuildEditorConfig.editorconfig
+Router/Core/obj/Debug/net9.0/Core.GlobalUsings.g.cs

@@ -1,9 +1,10 @@
 using System;
 using Microsoft.ML;
 using Router.Core.Models;
+using Router.Core.Services;
 using Router.Domain.MessageAggregate;
 
-namespace Router.Core.Services.Implementations;
+namespace Router.External.Services;
 
 internal class PredictionService : IPredictionService
 {

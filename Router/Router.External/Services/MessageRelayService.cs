@@ -3,9 +3,10 @@ using System.Net.Mime;
 using System.Text;
 using System.Text.Json;
 using Router.Core.Models;
+using Router.Core.Services;
 using Router.Domain.MessageAggregate;
 
-namespace Router.Core.Services.Implementations;
+namespace Router.External.Services;
 
 internal class MessageRelayService : IMessageRelayService
 {

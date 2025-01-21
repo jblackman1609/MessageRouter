@@ -12,7 +12,7 @@ internal class OTPMessageHandler : IMessageHandler
     public OTPMessageHandler(IMessageRelayService service) =>
         _service = service;
 
-    public async Task<(MessageStatus, string)> HandleAsync(Message message)
+    public async Task<MessageStatus> HandleAsync(Message message)
     {
         SmsModel smsModel = new()
         {
@@ -22,6 +22,9 @@ internal class OTPMessageHandler : IMessageHandler
             RecipientPhone = message.RecipientPhone
         };
 
-        return await _service.SendToRelayAsync(smsModel);
+        (MessageStatus status, string log) = await _service
+            .SendToRelayAsync(smsModel);
+        
+        return status;
     }
 }

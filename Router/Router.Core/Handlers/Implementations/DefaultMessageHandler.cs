@@ -5,7 +5,7 @@ namespace Router.Core.Handlers.Implementations;
 
 internal class DefaultMessageHandler : IMessageHandler
 {
-    public Task<(MessageStatus, string)> HandleAsync(Message message)
+    public Task<MessageStatus> HandleAsync(Message message)
     {
         throw new NotImplementedException();
     }

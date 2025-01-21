@@ -5,5 +5,5 @@ namespace Router.Core.Handlers;
 
 public interface IMessageHandler
 {
-    Task<(MessageStatus, string)> HandleAsync(Message message);
+    Task<MessageStatus> HandleAsync(Message message);
 }

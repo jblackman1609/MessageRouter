@@ -2,7 +2,7 @@ using System;
 
 namespace Router.Domain.MessageAggregate;
 
-public static class MessageLogs
+public static class MessageLog
 {
     public const string ACCEPTED = "Message was accepted successfully.";
     public const string REJECTED = "Message rejected - Invalid input data.";
@@ -13,6 +13,6 @@ public static class MessageLogs
     public const string PENDING_REVIEW = "Message pending PII review.";
     public const string DATA_LOCKED = "Message has been data locked - PII has been confirmed.";
     public const string APPROVED_PII_OVERRIDE = "PII review complete - Confirmed message contains no PII.";
-    public const string TRANSMITTED = "Message has been transmitted to the provider.";
-    public const string FAILED = "Message failed to be transmitted to the provider.";
+    public const string TRANSMITTED = "Message has been transmitted to the Relay.";
+    public const string FAILED = "Message failed to be transmitted to the Relay.";
 }

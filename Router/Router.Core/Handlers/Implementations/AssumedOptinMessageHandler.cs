@@ -8,38 +8,44 @@ namespace Router.Core.Handlers.Implementations;
 
 internal class AssumedOptinMessageHandler : IMessageHandler
 {
-    private readonly ITemplateRepository _templateRepo;
-    private readonly ITenantRecipientRepository _tenantRecipienRepo;
+    private readonly IIdentifyPIIService _piiService;
     private readonly IMessageRelayService _relayService;
 
-    public AssumedOptinMessageHandler(ITemplateRepository templateRepo,
-        ITenantRecipientRepository tenantRecipientRepo,
+    public AssumedOptinMessageHandler(IIdentifyPIIService piiService,
         IMessageRelayService relayService)
     {
-        _templateRepo = templateRepo;
-        _tenantRecipienRepo = tenantRecipientRepo;
+        _piiService = piiService;
         _relayService = relayService;
     }
     
     public async Task<(bool, string)> HandleAsync(Message message)
     {
-        // Check for PII (PII interface)
-
-        SmsModel smsModel = new()
+        PIIResponse piiResponse = await _piiService.PredictAsync(new PIIRequest());
+        if (!piiResponse.PredictedLabel)
         {
-            Subject = message.Subject,
-            Body = message.Body,
-            TenantPhone = message.TenantPhone,
-            RecipientPhone = message.RecipientPhone
-        };
+            SmsModel smsModel = new()
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                TenantPhone = message.TenantPhone,
+                RecipientPhone = message.RecipientPhone
+            };
 
-        RelayResponse response = await _relayService.SendToRelayAsync(smsModel);
+            RelayResponse relayResponse = await _relayService.SendToRelayAsync(smsModel);
 
-        if (response.Success)
-        {
-            return (true, response.MessageLog!);
+            if (relayResponse.Success)
+            {
+                return (true, relayResponse.MessageLog!);
+            }
+
+            else return (false, relayResponse.MessageLog!);
         }
 
-        else return (false, response.MessageLog!);
+        else
+        {
+            message.UpdateStatus(MessageStatus.Denied);
+            message.AddMessageLog(MessageLogs.DENIED_PII);
+            return (false, )
+        }
     }
 }

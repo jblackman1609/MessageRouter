@@ -9,10 +9,10 @@ public class Message : AggregateRoot
     private MessageStatus _status;
     private string _body = "";
     private readonly List<string> _messageLogs = [];    
-    public string GuidId { get; private set; }
-    public string Subject { get; private set; }
-    public string RecipientPhone { get; private set; }
-    public string TenantPhone { get; private set; }
+    public string GuidId { get; private set; } = null!;
+    public string Subject { get; private set; } = null!;
+    public string RecipientPhone { get; private set; } = null!;
+    public string TenantPhone { get; private set; } = null!;
     public decimal TemplateId { get; private set; }
 
     public Message(string subject, string tenantPhone, string recipientPhone, decimal templateId)
@@ -24,6 +24,8 @@ public class Message : AggregateRoot
         TemplateId = templateId;
         _status = MessageStatus.Accepted;
     }
+
+    public Message() { }
 
     public IReadOnlyCollection<string> MessageLogs => _messageLogs.ToList();
 

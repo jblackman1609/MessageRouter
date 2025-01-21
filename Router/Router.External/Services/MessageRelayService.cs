@@ -28,9 +28,9 @@ internal class MessageRelayService : IMessageRelayService
         
         if (response.IsSuccessStatusCode)
         {
-            return (MessageStatus.Transmitted, MessageLogs.TRANSMITTED);
+            return (MessageStatus.Transmitted, MessageLog.TRANSMITTED);
         }
 
-        else return (MessageStatus.Failed, MessageLogs.FAILED);
+        else return (MessageStatus.Failed, MessageLog.FAILED);
     }
 }

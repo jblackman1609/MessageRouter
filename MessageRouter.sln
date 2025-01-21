@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.External", "Router\R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Router.Api", "Router\Router.Api\Router.Api.csproj", "{7AA97057-A0D7-4218-9A54-FF2E3A8B9B95}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "Router\Contracts\Contracts.csproj", "{DEFB131C-94B5-4863-BF77-24577249A677}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{7AA97057-A0D7-4218-9A54-FF2E3A8B9B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7AA97057-A0D7-4218-9A54-FF2E3A8B9B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7AA97057-A0D7-4218-9A54-FF2E3A8B9B95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEFB131C-94B5-4863-BF77-24577249A677}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEFB131C-94B5-4863-BF77-24577249A677}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEFB131C-94B5-4863-BF77-24577249A677}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEFB131C-94B5-4863-BF77-24577249A677}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,5 +54,6 @@ Global
 		{CA956DFF-F74C-4217-86B0-53D27A31FEC2} = {A7F2EE9B-CEF9-5BA6-EF5B-474A4B1D8E8B}
 		{AA56C72C-8CAF-41FB-9F54-6DFAAC1684F0} = {A7F2EE9B-CEF9-5BA6-EF5B-474A4B1D8E8B}
 		{7AA97057-A0D7-4218-9A54-FF2E3A8B9B95} = {A7F2EE9B-CEF9-5BA6-EF5B-474A4B1D8E8B}
+		{DEFB131C-94B5-4863-BF77-24577249A677} = {A7F2EE9B-CEF9-5BA6-EF5B-474A4B1D8E8B}
 	EndGlobalSection
 EndGlobal

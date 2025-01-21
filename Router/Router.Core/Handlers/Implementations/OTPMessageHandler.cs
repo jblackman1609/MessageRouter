@@ -7,8 +7,21 @@ namespace Router.Core.Handlers.Implementations;
 
 internal class OTPMessageHandler : IMessageHandler
 {
-    public Task<(MessageStatus, string)> HandleAsync(Message message)
+    private readonly IMessageRelayService _service;
+
+    public OTPMessageHandler(IMessageRelayService service) =>
+        _service = service;
+
+    public async Task<(MessageStatus, string)> HandleAsync(Message message)
     {
-        throw new NotImplementedException();
+        SmsModel smsModel = new()
+        {
+            Subject = message.Subject,
+            Body = message.Body,
+            TenantPhone = message.TenantPhone,
+            RecipientPhone = message.RecipientPhone
+        };
+
+        return await _service.SendToRelayAsync(smsModel);
     }
 }

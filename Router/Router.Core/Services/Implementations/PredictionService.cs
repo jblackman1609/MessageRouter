@@ -1,9 +1,11 @@
 using System;
 using Microsoft.ML;
+using Router.Core.Models;
+using Router.Domain.MessageAggregate;
 
 namespace Router.Core.Services.Implementations;
 
-internal class PredictionService
+internal class PredictionService : IPredictionService
 {
     public static string ModelPath => Path.Combine();
     private readonly MLContext _context;
@@ -11,20 +13,20 @@ internal class PredictionService
 
     public PredictionService(MLContext context) => _context = context;
 
-    public async Task<bool> PredictAsync(MLRequest<PIIDataDTO> request)
+    public async Task<bool> PredictAsync(PIIData data)
     {
         LoadModel();
-        var predictionEngine = _context.Model.CreatePredictionEngine<PIIData, PIIPrediction>(_model);
+        var predictionEngine = _context.Model.CreatePredictionEngine<PIIData, PredictionResponse>(_model);
         
-        return await Task.FromResult(new MLResponse<PIIPrediction>
-        {
-            Data = predictionEngine.Predict(request.Data!.Map())
-        });
+        PredictionResponse response = predictionEngine.Predict(data);
+        
+        return await Task.FromResult(response.PredictedLabel);
     }
 
     private void LoadModel()
     {
-        using (var stream = new FileStream(ModelPath, FileMode.Open, FileAccess.Read, FileShare.Read))
+        using (FileStream stream = 
+            new (ModelPath, FileMode.Open, FileAccess.Read, FileShare.Read))
         {
             _model = _context.Model.Load(stream, out _);
         }

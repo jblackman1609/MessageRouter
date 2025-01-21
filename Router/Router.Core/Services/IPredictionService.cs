@@ -4,7 +4,7 @@ using Router.Domain.MessageAggregate;
 
 namespace Router.Core.Services;
 
-public interface IIdentifyPIIService
+public interface IPredictionService
 {
-    Task<(MessageStatus, string)> PredictAsync();
+    Task<bool> PredictAsync(PIIData data);
 }

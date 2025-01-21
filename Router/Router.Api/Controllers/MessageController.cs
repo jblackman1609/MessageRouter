@@ -16,7 +16,7 @@ namespace Router.Api.Controllers
                 return BadRequest();
             }
 
-            
+            return Ok();
         }
     }
 }

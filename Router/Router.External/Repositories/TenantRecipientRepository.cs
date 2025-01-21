@@ -20,9 +20,11 @@ internal class TenantRecipientRepository : ITenantRecipientRepository
         await _context.SaveAsync();
     }
 
-    public Task<Recipient> GetRecipientAsync(decimal recipientId)
+    public async Task<Recipient> GetRecipientAsync(string phone)
     {
-        throw new NotImplementedException(); 
+        return (await _context.Recipients
+            .FirstOrDefaultAsync(r => r.Phone == phone))!.Map() ??
+            throw new NullReferenceException(); 
     }
 
     public async Task<Tenant> GetTenantAsync(decimal templateId)

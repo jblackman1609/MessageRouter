@@ -11,9 +11,8 @@ public abstract class AggregateRoot
     public string? CreatedBy { get; protected set; }
     public string? UpdatedBy { get; protected set; }
 
-    protected AggregateRoot(decimal id) 
+    protected AggregateRoot() 
     {
-        Id = id;
         DateCreated = DateTime.UtcNow;
         LastUpdated = DateTime.UtcNow;
         CreatedBy = "";

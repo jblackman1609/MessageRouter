@@ -8,5 +8,5 @@ public interface ITenantRecipientRepository
     Task UpdateTenantRecipientAsync(TenantRecipient tenantRecipient);
     Task<TenantRecipient> GetTenantRecipientAsync(decimal tenantId, decimal recipientId);
     Task<Tenant> GetTenantAsync(decimal tenantId);
-    Task<Recipient> GetRecipientAsync(decimal recipientId);
+    Task<Recipient> GetRecipientAsync(string phone);
 }

@@ -9,8 +9,7 @@ public class TenantRecipient : AggregateRoot
     public decimal TenantId { get; private set; }
     public decimal RecipientId { get; private set; }
     
-    public TenantRecipient(decimal id, decimal tenantId, decimal recipientId) :
-        base(id)
+    public TenantRecipient(decimal tenantId, decimal recipientId)
     {
         TenantId = tenantId;
         RecipientId = recipientId;

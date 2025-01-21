@@ -1,6 +1,6 @@
 using System;
 
-namespace Router.Domain.MessageAggregate;
+namespace Router.Domain.TemplateAggregate;
 
 public interface ITemplateRepository
 {

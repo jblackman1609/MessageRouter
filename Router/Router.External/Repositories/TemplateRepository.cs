@@ -2,6 +2,7 @@ using System;
 using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using Router.Domain.MessageAggregate;
+using Router.Domain.TemplateAggregate;
 using Router.External.Contexts;
 using Router.External.DataModels;
 

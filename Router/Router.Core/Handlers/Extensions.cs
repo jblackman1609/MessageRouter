@@ -7,6 +7,6 @@ public static class Extensions
 {
     public static string Encrypt(this string text)
     {
-        return "";
+        return text;
     }
 }

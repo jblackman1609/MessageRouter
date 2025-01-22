@@ -34,11 +34,13 @@ internal class TenantRecipientRepository : ITenantRecipientRepository
             .FirstOrDefaultAsync(ttm => ttm.tm.Id == templateId))!.t.Map();
     }
 
-    public async Task<TenantRecipient> GetTenantRecipientAsync(decimal tenantId, decimal recipientId)
+    public async Task<TenantRecipient> GetTenantRecipientAsync(decimal templateId, string phone)
     {
-        return (await _context.TenantRecipients
-            .FirstOrDefaultAsync(tr => tr.TenantId == tenantId && tr.RecipientId == recipientId))!.Map() ??
-            throw new NullReferenceException();
+        return await Task.FromResult(_context.Tenants
+            .Join(_context.Templates, tn => tn.Id, tm => tm.TenantId, (tn, tm) => new { tn, tm })
+            .Join(_context.TenantRecipients, tntm => tntm.tn.Id, tr => tr.TenantId, (tntm, tr) => new { tntm, tr })
+            .Join(_context.Recipients, tntmtr => tntmtr.tr.RecipientId, r => r.Id, (tntmtr, r) => new { tntmtr, r })
+            .FirstOrDefault(tntmtrr => tntmtrr.tntmtr.tntm.tm.Id == templateId && tntmtrr.r.Phone == phone)!.tntmtr.tr.Map());                    
     }
 
     public async Task UpdateTenantRecipientAsync(TenantRecipient tenantRecipient)

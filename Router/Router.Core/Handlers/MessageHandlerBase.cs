@@ -13,7 +13,7 @@ public abstract class MessageHandlerBase
     protected MessageHandlerBase(IRepository repo, IMessageRelayService service) => 
     (_repo, _service) = (repo , service);
 
-    protected virtual async Task ProcessMessageAsync(Message message, bool isPII)
+    protected virtual async Task<MessageStatus> ProcessMessageAsync(Message message, bool isPII)
     {
         if (isPII)
         {
@@ -33,6 +33,8 @@ public abstract class MessageHandlerBase
                 RecipientPhone = message.RecipientPhone
             });
         }
+
+        return message.Status;
     }
 
     private async Task PersistMessageAsync(Message message, MessageStatus status, string log)

@@ -22,8 +22,6 @@ internal class AssumedOptinMessageHandler : MessageHandlerBase, IMessageHandler
             BodyText = message.Body
         });
 
-        await base.ProcessMessageAsync(message, isPII);
-
-        return MessageStatus.Transmitted;
+        return await base.ProcessMessageAsync(message, isPII);
     }
 }

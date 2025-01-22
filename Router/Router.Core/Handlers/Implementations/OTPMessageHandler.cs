@@ -10,13 +10,11 @@ namespace Router.Core.Handlers.Implementations;
 internal class OTPMessageHandler : MessageHandlerBase, IMessageHandler
 {
     public OTPMessageHandler(
-        IRepository repo,  IMessageRelayService service, IPredictionService predictionService) : 
+        IRepository repo,  IMessageRelayService service) : 
         base(repo, service) { }
 
     public async Task<MessageStatus> HandleAsync(Message message)
     {
-        await base.ProcessMessageAsync(message, false);
-        
-        return MessageStatus.Transmitted;
+        return await base.ProcessMessageAsync(message, false);
     }
 }

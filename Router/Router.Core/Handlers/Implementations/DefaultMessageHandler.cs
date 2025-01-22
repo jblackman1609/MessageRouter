@@ -30,7 +30,7 @@ internal class DefaultMessageHandler : MessageHandlerBase, IMessageHandler
             message.UpdateStatus(MessageStatus.Denied);
             message.AddMessageLog(MessageLog.DENIED_BLOCKED);
 
-            return MessageStatus.Denied;
+            return message.Status;
         }
 
         else if (!tenantRecipient.IsOptedIn)
@@ -39,7 +39,7 @@ internal class DefaultMessageHandler : MessageHandlerBase, IMessageHandler
             message.AddMessageLog(MessageLog.DENIED_OPTIN);
             // Get Optin Request template and send it.
 
-            return MessageStatus.Denied;
+            return message.Status;
         }
 
         bool isPII = await _predictionService.PredictAsync(new()
@@ -47,8 +47,6 @@ internal class DefaultMessageHandler : MessageHandlerBase, IMessageHandler
             BodyText = message.Body
         });
 
-        await base.ProcessMessageAsync(message, isPII);
-
-        return MessageStatus.Transmitted;
+        return await base.ProcessMessageAsync(message, isPII);
     }
 }

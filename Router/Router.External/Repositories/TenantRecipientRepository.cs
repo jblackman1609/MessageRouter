@@ -20,6 +20,14 @@ internal class TenantRecipientRepository : ITenantRecipientRepository
         await _context.SaveAsync();
     }
 
+    public async Task<CountryData> GetCountryDataAsync(string phone)
+    {
+        return (await _context.Countries
+            .Join(_context.Recipients, c => c.Id, r => r.CountryDataId, (c, r) => new { c, r })
+            .Where(cr => cr.r.Phone == phone)
+            .FirstOrDefaultAsync())!.c.Map();
+    }
+
     public async Task<Recipient> GetRecipientAsync(string phone)
     {
         return (await _context.Recipients

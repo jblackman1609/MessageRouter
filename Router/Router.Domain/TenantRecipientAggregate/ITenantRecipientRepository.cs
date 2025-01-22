@@ -9,4 +9,5 @@ public interface ITenantRecipientRepository
     Task<TenantRecipient> GetTenantRecipientAsync(decimal templateId, string phone);
     Task<Tenant> GetTenantAsync(decimal tenantId);
     Task<Recipient> GetRecipientAsync(string phone);
+    Task<CountryData> GetCountryDataAsync(string phone);
 }

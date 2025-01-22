@@ -11,7 +11,7 @@ internal interface IMessageRouterContext
     DbSet<TenantRecipientModel> TenantRecipients { get; }
     DbSet<TenantModel> Tenants { get; }
     DbSet<RecipientModel> Recipients { get; }
-    DbSet<CountryData> Countries { get; }
+    DbSet<CountryDataModel> Countries { get; }
 
     Task SaveAsync();
 }

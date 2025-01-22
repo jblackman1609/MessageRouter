@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Router.External.DataModels;
 
 [Table("CountryData")]
-public class CountryData
+public class CountryDataModel
 {
     [Key]
     public decimal Id { get; set; }

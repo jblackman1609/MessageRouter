@@ -15,7 +15,7 @@ internal class SqlServerContext : DbContext, IMessageRouterContext
 
     public DbSet<RecipientModel> Recipients { get; set; }
 
-    public DbSet<CountryData> Countries { get; set; }
+    public DbSet<CountryDataModel> Countries { get; set; }
 
     public SqlServerContext(DbContextOptions<SqlServerContext> opts) : base(opts) { }
 

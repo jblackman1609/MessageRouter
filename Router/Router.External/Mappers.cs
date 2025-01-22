@@ -46,4 +46,9 @@ public static class Mappers
     {
         return new Recipient(recipient.Phone!);
     }
+
+    public static CountryData Map(this CountryDataModel countryData)
+    {
+        return new CountryData();
+    }
 }

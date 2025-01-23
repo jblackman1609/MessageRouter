@@ -12,6 +12,8 @@ public class RecipientModel
     public string? Phone { get; set; }
     public List<TenantRecipientModel>? TenantRecipients { get; set; }
     public decimal CountryDataId { get; set; }
+    public bool IsBlocked { get; set; }
+    public string? Status { get; set; }
     public DateTime DateCreated { get; set; }
     public DateTime LastUpdated { get; set; }
     public string? CreatedBy { get; set; }

@@ -23,6 +23,7 @@ public class Message : AggregateRoot
         TenantPhone = tenantPhone;
         TemplateId = templateId;
         _status = MessageStatus.Accepted;
+        AddMessageLog(MessageLog.ACCEPTED);
     }
 
     public Message() { }

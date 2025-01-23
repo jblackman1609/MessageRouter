@@ -6,7 +6,7 @@ namespace Router.Core.Senders;
 
 public interface IMessageSender
 {
-    IMessageHandler Handler { get; }
+    IMessageHandler Handler { get; set; }
 
     Task SendMessageAsync();
 }

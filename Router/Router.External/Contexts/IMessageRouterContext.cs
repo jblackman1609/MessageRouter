@@ -4,7 +4,7 @@ using Router.External.DataModels;
 
 namespace Router.External.Contexts;
 
-internal interface IMessageRouterContext
+public interface IMessageRouterContext
 {
     DbSet<TemplateModel> Templates { get; }
     DbSet<MessageModel> Messages { get; }

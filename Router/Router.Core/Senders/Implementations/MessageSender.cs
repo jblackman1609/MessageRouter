@@ -8,8 +8,8 @@ internal class MessageSender : Message, IMessageSender
 {
     public IMessageHandler Handler { get; set; } = null!;
     
-    public Task SendMessageAsync()
+    public async Task SendMessageAsync()
     {
-        throw new NotImplementedException();
+        await Handler.HandleAsync(this);
     }
 }

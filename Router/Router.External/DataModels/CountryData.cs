@@ -16,4 +16,5 @@ public class CountryDataModel
     public string? CountryCode { get; set; }
     public bool IsOptInRequired { get; set; }
     public bool IsOTPAllowed { get; set; }
+    public List<RecipientModel>? Recipients { get; set; }
 }

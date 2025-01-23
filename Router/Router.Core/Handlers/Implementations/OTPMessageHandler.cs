@@ -7,7 +7,7 @@ using Router.Domain.MessageAggregate;
 
 namespace Router.Core.Handlers.Implementations;
 
-internal class OTPMessageHandler : MessageHandlerBase, IMessageHandler
+public class OTPMessageHandler : MessageHandlerBase, IMessageHandler
 {
     public OTPMessageHandler(
         IRepository repo,  IMessageRelayService service) : 

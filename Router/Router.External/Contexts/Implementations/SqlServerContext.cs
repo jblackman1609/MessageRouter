@@ -17,7 +17,8 @@ internal class SqlServerContext : DbContext, IMessageRouterContext
 
     public DbSet<CountryDataModel> Countries { get; set; }
 
-    public SqlServerContext(DbContextOptions<SqlServerContext> opts) : base(opts) { }
+    public SqlServerContext(DbContextOptions<SqlServerContext> opts) : 
+        base(opts) { }
 
     public async Task SaveAsync()
     {

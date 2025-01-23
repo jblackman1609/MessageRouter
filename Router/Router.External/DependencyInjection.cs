@@ -27,7 +27,8 @@ public static class DependencyInjection
             .AddScoped<IMessageRepository, MessageRepository>()
             .AddScoped<IRepository, Repository>()
             .AddScoped<IPredictionService, PredictionService>()            
-            .AddScoped<IMessageRelayService, MessageRelayService>();
+            .AddScoped<IMessageRelayService, MessageRelayService>()
+            .AddScoped<IMessagePersistenceService, MessagePersistenceService>();
 
         services.AddHttpClient(relayClient, client =>
             {

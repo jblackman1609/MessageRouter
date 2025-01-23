@@ -43,7 +43,7 @@ public class Template : AggregateRoot
         if (_status is not TemplateStatus.Approved)
             throw new ArgumentException($"Template status must be in an approved state.");
 
-        return new Message(sub, tPhone, rPhone,  this.Id);
+        return new Message(sub, tPhone, rPhone,  Id);
     }
 }
 

@@ -5,6 +5,7 @@ using Router.Core.Handlers.Implementations;
 using Router.Core.Models;
 using Router.Core.Senders;
 using Router.Core.Services;
+using Router.Domain;
 using Router.Domain.MessageAggregate;
 using Router.Domain.TemplateAggregate;
 using Router.Domain.TenantRecipientAggregate;
@@ -15,15 +16,16 @@ namespace Router.Api.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private readonly IMessageHandler _handler;
-        private readonly IMessagePersistenceService _service;
+        //private readonly IMessageHandler _handler;
+        private readonly IMessageSender _sender;
+        private readonly IMessageService _service;
         private readonly ILogger<MessageController> _logger;
         public HandlerType Handler;
-        public new MessageResponse Response = new();
+        public new HandlerResponse Response = new();
 
         public MessageController(
-            IMessageHandler handler, IMessagePersistenceService service, ILogger<MessageController> logger) =>
-            (_handler, _service, _logger) = (handler, service, logger);
+            IMessageSender sender, IMessageService service, ILogger<MessageController> logger) =>
+            (_sender, _service, _logger) = (sender, service, logger);
 
         [Route("sendSms")]
         public async Task<IActionResult> SendSmsAsync([FromBody] InputMessage inputMessage)
@@ -33,8 +35,10 @@ namespace Router.Api.Controllers
                 return BadRequest();
             }
 
-            Template template = 
-                await _service.Repository.TemplateRepo.GetTemplateAsync(inputMessage.TemplateId);
+            Template template = await _service
+                .GetTemplateAsync(inputMessage.TemplateId);
+            
+            TenantType tenantType = await _service.GetTenantTypeAsync(template.TenantId);
 
             foreach (string phone in inputMessage.RecipientPhones!)
             {
@@ -45,19 +49,25 @@ namespace Router.Api.Controllers
 
                 message.BuildMessageBody(template.Text, inputMessage.Keywords!);
 
-                CountryData countryData = 
-                    await _service.Repository.TenantRecipientRepo.GetCountryDataAsync(message.RecipientPhone);
+                (bool isOptInRequired, bool isOTPAllowed) = await _service
+                    .GetCountryDataAsync(message.RecipientPhone);
 
-                //await DetermineStrategy(message, countryData.IsOptInRequired, countryData.IsOTPAllowed);
+                DetermineStrategy(message.Body, isOptInRequired, isOTPAllowed, tenantType);
+
+                switch (Handler)
+                {
+                    case: HandlerType.OTP
+                        _sender.Handler = new OTPMessageHandler()
+                }
             }
             
             
             return Ok();
         }
 
-        private async Task DetermineStrategy(Message message, bool isOptInRequired, bool isOTPAllowed, TenantType)
+        private void DetermineStrategy(string body, bool isOptInRequired, bool isOTPAllowed, TenantType type)
         {
-            if (message.Body!.IsOTPMessage())
+            if (body.IsOTPMessage())
             {
                 if (isOTPAllowed)
                 {
@@ -71,14 +81,14 @@ namespace Router.Api.Controllers
                 }
             }
 
-            else if (!isOptInRequired && await _router.RouteService.IsAssumedOptInTenantAsync(messageDTO.TenantMessage!.TenantId))
+            else if (!isOptInRequired && type is TenantType.AssumedOptIn)
             {
-                _response = await _router.RouteStrategy.AssumedOptInRouteAsync(messageDTO);
+                Handler = HandlerType.AssumedOptin;
             }
 
             else
             {
-                _response = await _router.RouteStrategy.DefaultRouteAsync(messageDTO);
+                Handler = HandlerType.Default;
             }          
         }
     }

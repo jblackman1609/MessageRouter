@@ -10,39 +10,38 @@ namespace Router.Core.Handlers.Implementations;
 
 internal class DefaultMessageHandler : MessageHandlerBase, IMessageHandler
 {
-    private readonly IPredictionService _predictionService;
-    private readonly IRepository _repo;
+    private readonly IPredictionService _pService;
+    private readonly IMessageService _mService;
     
     public DefaultMessageHandler(
-        IRepository repo, IMessageRelayService service, IPredictionService predictionService) :
-        base(repo, service) => (_repo, _predictionService) = (repo, predictionService);
+        IRepository repo, IService service, IPredictionService pService, IMessageService mService) :
+        base(repo, service) => (_mService, _pService) = (mService, pService);
     
     public async Task<MessageStatus> HandleAsync(Message message)
     {
-        Recipient recipient = await _repo.TenantRecipientRepo
-            .GetRecipientAsync(message.RecipientPhone);
-
-        TenantRecipient tenantRecipient = await _repo.TenantRecipientRepo
-            .GetTenantRecipientAsync(message.TemplateId, message.RecipientPhone);
-        
-        if (recipient.IsBlocked)
+        (bool isOptedIn, bool isoptedOut, bool isBlocked) =
+            await _mService.GetRecipientDataAsync(message.TemplateId, message.RecipientPhone);
+                
+        if (isBlocked)
         {
             message.UpdateStatus(MessageStatus.Denied);
             message.AddMessageLog(MessageLog.DENIED_BLOCKED);
+            await _mService.UpsertMessageAsync(message);
 
             return message.Status;
         }
 
-        else if (!tenantRecipient.IsOptedIn)
+        else if (!isOptedIn || isoptedOut)
         {
             message.UpdateStatus(MessageStatus.Denied);
             message.AddMessageLog(MessageLog.DENIED_OPTIN);
+            await _mService.UpsertMessageAsync(message);
             // Get Optin Request template and send it.
 
             return message.Status;
         }
 
-        bool isPII = await _predictionService.PredictAsync(new()
+        bool isPII = await _pService.PredictAsync(new()
         {
             BodyText = message.Body
         });

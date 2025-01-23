@@ -1,4 +1,4 @@
-namespace Router.Core.Models;
+namespace Router.Contracts.Models;
 
 public enum HandlerType
 {

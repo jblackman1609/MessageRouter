@@ -10,8 +10,7 @@ namespace Router.Core.Handlers.Implementations;
 public class OTPMessageHandler : MessageHandlerBase, IMessageHandler
 {
     public OTPMessageHandler(
-        IRepository repo,  IMessageRelayService service) : 
-        base(repo, service) { }
+        IRepository repo, IService service) : base(repo, service) { }
 
     public async Task<MessageStatus> HandleAsync(Message message)
     {

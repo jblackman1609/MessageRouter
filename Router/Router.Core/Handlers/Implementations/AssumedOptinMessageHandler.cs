@@ -9,15 +9,15 @@ namespace Router.Core.Handlers.Implementations;
 
 internal class AssumedOptinMessageHandler : MessageHandlerBase, IMessageHandler
 {
-    private readonly IPredictionService _predictionService;
+    private readonly IPredictionService _pService;
     
     public AssumedOptinMessageHandler(
-        IRepository repo, IMessageRelayService service, IPredictionService predictionService) :
-        base(repo, service) => _predictionService = predictionService;
+        IRepository repo, IService service, IPredictionService pService) :
+        base(repo, service) => _pService = pService;
         
     public async Task<MessageStatus> HandleAsync(Message message)
     {
-        bool isPII = await _predictionService.PredictAsync(new()
+        bool isPII = await _pService.PredictAsync(new()
         {
             BodyText = message.Body
         });

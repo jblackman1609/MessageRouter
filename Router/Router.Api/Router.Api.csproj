@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Router.Core\Router.Core.csproj" />
+    <ProjectReference Include="..\Router.External\Router.External.csproj" />
   </ItemGroup>
 
 </Project>

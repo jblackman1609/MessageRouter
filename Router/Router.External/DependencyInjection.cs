@@ -25,10 +25,11 @@ public static class DependencyInjection
             .AddScoped<ITemplateRepository, TemplateRepository>()
             .AddScoped<ITenantRecipientRepository, TenantRecipientRepository>()
             .AddScoped<IMessageRepository, MessageRepository>()
-            .AddScoped<IRepository, Repository>()
+            .AddScoped<IRepoService, RepoService>()
             .AddScoped<IPredictionService, PredictionService>()            
             .AddScoped<IMessageRelayService, MessageRelayService>()
-            .AddScoped<IMessagePersistenceService, MessagePersistenceService>();
+            .AddScoped<IEmailService, EmailService>()
+            .AddScoped<IMessageService, MessageService>();
 
         services.AddHttpClient(relayClient, client =>
             {

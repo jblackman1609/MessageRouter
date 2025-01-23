@@ -9,30 +9,20 @@ namespace Router.Core.Handlers;
 
 public abstract class MessageHandlerBase
 {
-    private readonly IRepoService _repoService;
-    private readonly IMessageService _messageService;
+    private readonly IRepoService _repo;
+    private readonly IMessageService _message;
     public MessageStatus Status; 
     public string Log = "";
 
-    protected MessageHandlerBase(IRepoService repoService, IMessageService messageService) => 
-        (_repoService, _messageService) = (repoService , messageService);
+    protected MessageHandlerBase(IRepoService repo, IMessageService message) => 
+        (_repo, _message) = (repo , message);
 
     protected virtual async Task<MessageStatus> ProcessMessageAsync(Message message, HandlerType type)
     {
         switch (type)
         {
             case HandlerType.OTP:
-                await PersistMessageAsync(message, MessageStatus.Approved, MessageLog.APPROVED);
-            
-                (Status, Log) = await _messageService.SendToRelayAsync(new SmsModel
-                {
-                    Subject = message.Subject,
-                    Body = message.Body,
-                    TenantPhone = message.TenantPhone,
-                    RecipientPhone = message.RecipientPhone
-                });
-
-                await PersistMessageAsync(message, Status, Log);
+                await ProcessNonPIIAsync(message);
                 break;
 
             case HandlerType.AssumedOptin:
@@ -92,12 +82,12 @@ public abstract class MessageHandlerBase
             message.Body.Encrypt();
         }        
         
-        await _repoService.UpdateMessageAsync(message);
+        await _repo.UpdateMessageAsync(message);
     }
 
     private async Task<bool> GetPredictionAsync(Message message)
     {
-        return await _messageService.PredictAsync(new()
+        return await _message.PredictAsync(new()
         {
             BodyText = message.Body
         });
@@ -107,7 +97,7 @@ public abstract class MessageHandlerBase
     {
         await PersistMessageAsync(message, MessageStatus.Denied, MessageLog.DENIED_PII);
             
-        await _messageService.SendEmailAsync(new EmailModel
+        await _message.SendEmailAsync(new EmailModel
         {
             Subject = "Possible PII Notification",
             Body = "",
@@ -122,7 +112,7 @@ public abstract class MessageHandlerBase
     {
         await PersistMessageAsync(message, MessageStatus.Approved, MessageLog.APPROVED);
             
-        (Status, Log) = await _messageService.SendToRelayAsync(new()
+        (Status, Log) = await _message.SendToRelayAsync(new()
         {
             Subject = message.Subject,
             Body = message.Body,
@@ -136,10 +126,10 @@ public abstract class MessageHandlerBase
     private async Task<(bool, bool, bool)> ValidateRecipientAsync(
         decimal templateId, string phone)
     {
-        TenantRecipient tenantRecipient = await _repoService
+        TenantRecipient tenantRecipient = await _repo
             .GetTenantRecipientAsync(templateId, phone);
 
-        Recipient recipient = await _repoService
+        Recipient recipient = await _repo
             .GetRecipientAsync(phone);
 
         return (tenantRecipient.IsOptedIn, tenantRecipient.IsOptedOut, recipient.IsBlocked);

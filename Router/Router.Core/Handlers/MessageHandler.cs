@@ -6,7 +6,7 @@ using Router.Domain;
 using Router.Domain.MessageAggregate;
 using Router.Domain.TenantRecipientAggregate;
 
-namespace Router.Core.Handlers.Implementations;
+namespace Router.Core.Handlers;
 
 internal class MessageHandler : MessageHandlerBase, IMessageHandler
 {

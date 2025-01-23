@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Router.Core.Handlers;
-using Router.Core.Handlers.Implementations;
 using Router.Core.Models;
 using Router.Core.Services;
 using Router.Domain;

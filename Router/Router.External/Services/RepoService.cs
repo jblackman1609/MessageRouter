@@ -16,53 +16,33 @@ internal class RepoService : IRepoService
         IMessageRepository messageRepo, ITemplateRepository templateRepo, ITenantRecipientRepository tenantRecipientRepo) =>
         (_messageRepo, _templateRepo, _tenantRecipientRepo) = (messageRepo, templateRepo, tenantRecipientRepo);
 
-    public async Task AddMessageAsync(Message message)
-    {
+    public async Task AddMessageAsync(Message message) =>
         await _messageRepo.AddMessageAsync(message);
-    }
 
-    public async Task AddTenantRecipientAsync(TenantRecipient tenantRecipient)
-    {
+    public async Task AddTenantRecipientAsync(TenantRecipient tenantRecipient) =>
         await _tenantRecipientRepo.AddTenantRecipientAsync(tenantRecipient);
-    }
 
-    public async Task<CountryData> GetCountryDataAsync(string phone)
-    {
-        return await _tenantRecipientRepo.GetCountryDataAsync(phone);
-    }
+    public async Task<CountryData> GetCountryDataAsync(string phone) =>
+        await _tenantRecipientRepo.GetCountryDataAsync(phone);
 
-    public async Task<Recipient> GetRecipientAsync(string phone)
-    {
-        return await _tenantRecipientRepo.GetRecipientAsync(phone);
-    }
+    public async Task<Recipient> GetRecipientAsync(string phone) =>
+        await _tenantRecipientRepo.GetRecipientAsync(phone);
 
-    public async Task<Template> GetTemplateAsync(decimal id)
-    {
-        return await _templateRepo.GetTemplateAsync(id);
-    }
+    public async Task<Template> GetTemplateAsync(decimal id) =>
+        await _templateRepo.GetTemplateAsync(id);
 
-    public async Task<Tenant> GetTenantAsync(decimal templateId)
-    {
-        return await _tenantRecipientRepo.GetTenantAsync(templateId);
-    }
+    public async Task<Tenant> GetTenantAsync(decimal templateId) =>
+        await _tenantRecipientRepo.GetTenantAsync(templateId);
 
-    public async Task<TenantRecipient> GetTenantRecipientAsync(decimal templateId, string phone)
-    {
-        return await _tenantRecipientRepo.GetTenantRecipientAsync(templateId, phone);
-    }
+    public async Task<TenantRecipient> GetTenantRecipientAsync(decimal templateId, string phone) =>
+        await _tenantRecipientRepo.GetTenantRecipientAsync(templateId, phone);
 
-    public async Task UpdateMessageAsync(Message message)
-    {
+    public async Task UpdateMessageAsync(Message message) =>
         await _messageRepo.UpdateMessageAsync(message);
-    }
 
-    public async Task UpdateTemplateAsync(Template template)
-    {
+    public async Task UpdateTemplateAsync(Template template) =>
         await _templateRepo.UpdateTemplateAsync(template);
-    }
 
-    public async Task UpdateTenantRecipientAsync(TenantRecipient tenantRecipient)
-    {
+    public async Task UpdateTenantRecipientAsync(TenantRecipient tenantRecipient) =>
         await _tenantRecipientRepo.UpdateTenantRecipientAsync(tenantRecipient);
-    }
 }

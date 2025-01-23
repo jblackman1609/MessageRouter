@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Router.Core.Handlers;
 using Router.Core.Handlers.Implementations;
 using Router.Core.Models;
-using Router.Core.Senders;
 using Router.Core.Services;
 using Router.Domain;
 using Router.Domain.MessageAggregate;
@@ -16,16 +15,15 @@ namespace Router.Api.Controllers
     [ApiController]
     public class MessageController : ControllerBase
     {
-        //private readonly IMessageHandler _handler;
-        private readonly IMessageSender _sender;
-        private readonly IMessageService _service;
+        private readonly IMessageHandler _handler;
+        private readonly IRepoService _service;
         private readonly ILogger<MessageController> _logger;
         public HandlerType Handler;
         public new HandlerResponse Response = new();
 
         public MessageController(
-            IMessageSender sender, IMessageService service, ILogger<MessageController> logger) =>
-            (_sender, _service, _logger) = (sender, service, logger);
+            IMessageHandler handler, IRepoService service, ILogger<MessageController> logger) =>
+            (_handler, _service, _logger) = (handler, service, logger);
 
         [Route("sendSms")]
         public async Task<IActionResult> SendSmsAsync([FromBody] InputMessage inputMessage)
@@ -38,7 +36,8 @@ namespace Router.Api.Controllers
             Template template = await _service
                 .GetTemplateAsync(inputMessage.TemplateId);
             
-            TenantType tenantType = await _service.GetTenantTypeAsync(template.TenantId);
+            TenantType tenantType = (await _service
+                .GetTenantAsync(inputMessage.TemplateId)).Type;
 
             foreach (string phone in inputMessage.RecipientPhones!)
             {
@@ -49,23 +48,19 @@ namespace Router.Api.Controllers
 
                 message.BuildMessageBody(template.Text, inputMessage.Keywords!);
 
-                (bool isOptInRequired, bool isOTPAllowed) = await _service
-                    .GetCountryDataAsync(message.RecipientPhone);
+                CountryData countryData = await _service
+                    .GetCountryDataAsync(phone);
 
-                DetermineStrategy(message.Body, isOptInRequired, isOTPAllowed, tenantType);
+                DetermineHandler(message.Body, countryData.IsOptInRequired, countryData.IsOTPAllowed, tenantType);
 
-                switch (Handler)
-                {
-                    case: HandlerType.OTP
-                        _sender.Handler = new OTPMessageHandler()
-                }
+                Response
+                    .AddStatus(await _handler.HandleAsync(message, Handler));
             }
             
-            
-            return Ok();
+            return Ok(Response);
         }
 
-        private void DetermineStrategy(string body, bool isOptInRequired, bool isOTPAllowed, TenantType type)
+        private void DetermineHandler(string body, bool isOptInRequired, bool isOTPAllowed, TenantType type)
         {
             if (body.IsOTPMessage())
             {
@@ -77,7 +72,7 @@ namespace Router.Api.Controllers
                 else 
                 {
                     Response.IsSuccess = false;
-                    Response.Status = MessageStatus.Denied;
+                    Response.AddStatus(MessageStatus.Denied);
                 }
             }
 

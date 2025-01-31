@@ -1,8 +1,8 @@
-using System;
+
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Router.Core.Services;
-using Router.Domain;
 using Router.Domain.MessageAggregate;
 using Router.Domain.TemplateAggregate;
 using Router.Domain.TenantRecipientAggregate;
@@ -26,12 +26,11 @@ public static class DependencyInjection
             .AddScoped<ITenantRecipientRepository, TenantRecipientRepository>()
             .AddScoped<IMessageRepository, MessageRepository>()
             .AddScoped<IRepoService, RepoService>()
-            .AddScoped<IPredictionService, PredictionService>()            
+            .AddScoped<IPredictionService, PredictionService>()
             .AddScoped<IMessageRelayService, MessageRelayService>()
             .AddScoped<IEmailService, EmailService>()
-            .AddScoped<IMessageService, MessageService>();
-
-        services.AddHttpClient(relayClient, client =>
+            .AddScoped<IMessageService, MessageService>()
+            .AddHttpClient(relayClient, client =>
             {
                 client.BaseAddress = new Uri(baseAddress);
             });

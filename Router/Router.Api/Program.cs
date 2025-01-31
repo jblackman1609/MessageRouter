@@ -1,7 +1,18 @@
+using Router.Core;
+using Router.External;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.addExternalSer
+builder.Services
+    .AddExternalServices(
+        Environment.GetEnvironmentVariable("ConnectionString")!,
+        Environment.GetEnvironmentVariable("RelayClient")!,
+        Environment.GetEnvironmentVariable("BaseAddress")!)
+    .AddCoreServices();
+
+builder.Services
+    .AddAuthentication(JwtBearerDefaults)
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
